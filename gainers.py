@@ -48,7 +48,7 @@ def get_top_gainers(count=10, page=1):
                 },
                 ...
             ],
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
     """
     return _get_ranklist(po=1, count=count, page=page)
@@ -110,7 +110,7 @@ def _fetch_ranklist(url):
         data = json.loads(resp)
         
         if not data.get("data") or not data["data"].get("diff"):
-            return {"success": False, "data": None, "error": "无数据"}
+            return {"success": False, "data": None, "error": "无数据", "source": None}
         
         result = []
         for item in data["data"]["diff"]:
@@ -128,7 +128,7 @@ def _fetch_ranklist(url):
                 "prev_close": _safe_float(item.get("f18")),
             })
         
-        return {"success": True, "data": result, "error": None}
+        return {"success": True, "data": result, "error": None, "source": "东方财富 push2 API (第一层)"}
         
     except Exception as e:
         return {"success": False, "data": None, "error": str(e)}

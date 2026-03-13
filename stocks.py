@@ -13,7 +13,8 @@
 {
     "success": true/false,
     "data": [...] 或 null,
-    "error": "错误信息" 或 null
+    "error": "错误信息" 或 null,
+    "source": "数据来源说明"
 }
 
 【使用示例】
@@ -130,12 +131,12 @@ def get_realtime_quotes(secids):
                     "prev_close": _safe_float(item.get("f18")),
                     "market": market
                 })
-            return {"success": True, "data": result, "error": None}
+            return {"success": True, "data": result, "error": None, "source": "东方财富 push2 API (第一层)"}
         else:
-            return {"success": False, "data": None, "error": "未获取到数据"}
+            return {"success": False, "data": None, "error": "未获取到数据", "source": None}
             
     except Exception as e:
-        return {"success": False, "data": None, "error": str(e)}
+        return {"success": False, "data": None, "error": str(e), "source": None}
 
 
 def get_a_stocks():

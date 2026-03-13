@@ -97,12 +97,12 @@ def get_index_quotes(secids=None):
                     "open": _safe_float(item.get("f17")),
                     "prev_close": _safe_float(item.get("f18")),
                 })
-            return {"success": True, "data": result, "error": None}
+            return {"success": True, "data": result, "error": None, "source": "东方财富 push2 API (第一层)"}
         else:
-            return {"success": False, "data": None, "error": "未获取到数据"}
+            return {"success": False, "data": None, "error": "未获取到数据", "source": None}
             
     except Exception as e:
-        return {"success": False, "data": None, "error": str(e)}
+        return {"success": False, "data": None, "error": str(e), "source": None}
 
 
 def get_total_volume():
@@ -119,7 +119,7 @@ def get_total_volume():
                 "sh_volume": 108000000,      # 沪市成交量(手)
                 "sz_volume": 136000000       # 深市成交量(手)
             },
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
     """
     # 同时获取上证和深证的成交额
@@ -148,7 +148,7 @@ def get_total_volume():
                 "sh_volume": sh_volume,
                 "sz_volume": sz_volume
             },
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
     else:
         return {"success": False, "data": None, "error": result.get("error")}

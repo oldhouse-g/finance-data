@@ -54,7 +54,7 @@ def get_hk_quote(code):
                 "low": 545.00,
                 "volume": 12345678  # 成交量
             },
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
     
     【注意】
@@ -73,13 +73,13 @@ def get_hk_quote(code):
         # 解析返回数据
         # 格式: var hq_str_hk00700="腾讯控股,552.00,550.00,548.00,545.00,546.50,-5.50,-1.00,12345678,..."
         if "=" not in resp:
-            return {"success": False, "data": None, "error": "数据格式错误"}
+            return {"success": False, "data": None, "error": "数据格式错误", "source": None}
         
         data_str = resp.split("=")[1].strip('"')
         fields = data_str.split(",")
         
         if len(fields) < 10:
-            return {"success": False, "data": None, "error": "数据不完整"}
+            return {"success": False, "data": None, "error": "数据不完整", "source": None}
         
         # 解析字段
         # 0: 名称, 1: 昨收, 2: 今开, 3: 最高, 4: 最低, 5: 最新, 6: 涨跌额, 7: 涨跌幅, 8: 成交量
@@ -107,7 +107,7 @@ def get_hk_quote(code):
                 "low": low,
                 "volume": volume
             },
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
         
     except Exception as e:
@@ -125,11 +125,11 @@ def get_hk_quotes(codes):
         dict: {
             "success": True/False,
             "data": [ ... ],  # 同 get_hk_quote 的 data 列表
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
     """
     if not codes:
-        return {"success": False, "data": None, "error": "代码不能为空"}
+        return {"success": False, "data": None, "error": "代码不能为空", "source": None}
     
     # 拼接请求
     code_list = ",".join([f"rt_hk{c}" for c in codes])
@@ -168,7 +168,7 @@ def get_hk_quotes(codes):
                 "volume": _safe_int(fields[8])
             })
         
-        return {"success": True, "data": results, "error": None}
+        return {"success": True, "data": results, "error": None, "source": "新浪财经 hq.sinajs.cn (第一层)"}
         
     except Exception as e:
         return {"success": False, "data": None, "error": str(e)}

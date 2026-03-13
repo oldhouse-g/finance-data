@@ -45,7 +45,7 @@ def get_cls_telegraph(count=20):
                 },
                 ...
             ],
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
     """
     url = f"https://www.cls.cn/nodeapi/updateTelegraphList?app=CailianpressWeb&os=web&sv=7.7.5&rn={count}"
@@ -75,10 +75,10 @@ def get_cls_telegraph(count=20):
                 "level": item.get("level", "B")
             })
         
-        return {"success": True, "data": result, "error": None}
+        return {"success": True, "data": result, "error": None, "source": "财联社电报 API (第一层)"}
         
     except Exception as e:
-        return {"success": False, "data": None, "error": str(e)}
+        return {"success": False, "data": None, "error": str(e), "source": None}
 
 
 def get_important_news(count=10):
@@ -117,7 +117,7 @@ def get_sina_24h(count=10):
                 },
                 ...
             ],
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
     """
     url = f"https://finance.sina.com.cn/realstock/company/hs_{count}/klc_kl.js"

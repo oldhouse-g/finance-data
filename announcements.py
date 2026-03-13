@@ -41,7 +41,7 @@ def get_announcements(stock_code=None, count=10):
                 },
                 ...
             ],
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
     """
     # 股票代码格式处理
@@ -65,7 +65,7 @@ def get_announcements(stock_code=None, count=10):
         data = json.loads(resp)
         
         if not data.get("data") or not data["data"].get("list"):
-            return {"success": False, "data": None, "error": "无公告数据"}
+            return {"success": False, "data": None, "error": "无公告数据", "source": None}
         
         result = []
         for item in data["data"]["list"]:
@@ -86,10 +86,10 @@ def get_announcements(stock_code=None, count=10):
                 "url": f"https://www.eastmoney.com/zongyi.html?code={item.get('stock_code', '')}"
             })
         
-        return {"success": True, "data": result, "error": None}
+        return {"success": True, "data": result, "error": None, "source": "东方财富公告 API (第一层)"}
         
     except Exception as e:
-        return {"success": False, "data": None, "error": str(e)}
+        return {"success": False, "data": None, "error": str(e), "source": None}
 
 
 # ==================== 独立运行测试 ====================

@@ -100,7 +100,7 @@ def get_north_money():
                 "time": time_str,
                 "raw_time": time_str
             },
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
         
     except Exception as e:
@@ -119,7 +119,7 @@ def get_south_money():
                 "hk_accum": 520.8,   # 港股通累计净流入(亿元)
                 "time": "10:30"
             },
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
     """
     url = "https://push2.eastmoney.com/api/qt/kamt.rtmin/get?fields1=f1,f2,f3,f4&fields2=f51,f52,f53,f54,f55,f56"
@@ -160,7 +160,7 @@ def get_south_money():
                 "hk_accum": hk_accum,
                 "time": last_valid[0]
             },
-            "error": None
+            "error": None, "source": "东方财富 push2 API (第一层)"
         }
         
     except Exception as e:
